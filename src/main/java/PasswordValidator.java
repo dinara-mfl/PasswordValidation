@@ -7,6 +7,15 @@ public class PasswordValidator {
     }
 
     public static boolean containsDigit(String password) {
+        if (password == null) return false;
+
+        char[] characters = password.toCharArray();
+
+        for (char character: characters) {
+            if (character >= '0' && character <= '9') {
+                return true;
+            }
+        }
         return false;
     }
 
