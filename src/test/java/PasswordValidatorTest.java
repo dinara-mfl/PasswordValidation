@@ -46,7 +46,7 @@ class PasswordValidatorTest {
             "Pass123word",
             "12345678"
     })
-    void containsDigit_ShouldReturnTrue_WennPassworsHaveDigit(String password) {
+    void containsDigit_ShouldReturnTrue_WennPasswordHasDigit(String password) {
         assertTrue(PasswordValidator.containsDigit(password));
     }
 
@@ -57,22 +57,49 @@ class PasswordValidatorTest {
             "PASSWORD",
             "Password "
     })
-    void containsDigit_ShouldReturnFalse_WennPassworsHaveNoDigit(String password) {
+    void containsDigit_ShouldReturnFalse_WennPasswordHasNoDigit(String password) {
         assertFalse(PasswordValidator.containsDigit(password));
     }
 
     @Test
-    void containsDigit_ShouldReturnFalse_WennPassworIsNull() {
+    void containsDigit_ShouldReturnFalse_WennPasswordIsNull() {
         assertFalse(PasswordValidator.containsDigit(null));
     }
 
     @Test
-    void containsDigit_ShouldReturnFalse_WennPassworIsEmpty() {
+    void containsDigit_ShouldReturnFalse_WennPasswordIsEmpty() {
         assertFalse(PasswordValidator.containsDigit(""));
     }
 
+    // containsUpper()
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "Password",
+            "paSswOrd",
+            "PASSWORD",
+            "passworD"
+    })
+    void containsUpper_ShouldReturnTrue_WennPasswordHasUpper(String password) {
+        assertTrue(PasswordValidator.containsUpper(password));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "password",
+            "12345678",
+    })
+    void containsUpper_ShouldReturnFalse_WennPasswordHasNoUpper(String password) {
+        assertFalse(PasswordValidator.containsUpper(password));
+    }
+
     @Test
-    void containsUpper() {
+    void containsUpper_ShouldReturnFalse_WennPasswordIsNull() {
+        assertFalse(PasswordValidator.containsUpper(null));
+    }
+
+    @Test
+    void containsUpper_ShouldReturnFalse_WennPasswordsIsEmpty() {
+        assertFalse(PasswordValidator.containsUpper(""));
     }
 
     @Test

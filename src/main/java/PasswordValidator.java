@@ -20,6 +20,15 @@ public class PasswordValidator {
     }
 
     public static boolean containsUpper(String password) {
+        if (password == null) return false;
+
+        char[] characters = password.toCharArray();
+
+        for(char character: characters){
+            if (Character.isUpperCase(character)) {
+                return true;
+            }
+        }
         return false;
     }
 
