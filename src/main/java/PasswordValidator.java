@@ -4,6 +4,7 @@ import java.util.Set;
 public class PasswordValidator {
 
     private static final int MIN_LENGTH = 8;
+    public static final String ALLOWED_SPECIALS = "!@#$%&*?_-.";
     private static final Set<String> COMMON_PASSWORDS = Set.of(
             "password",
             "passwort",
@@ -81,12 +82,30 @@ public class PasswordValidator {
         return false;
     }
 
+    public static ValidationResult validate(String password, String allowed) {
+        ValidationResult result = new ValidationResult();
+
+        if (!hasMinLength(password, MIN_LENGTH))
+            result.addError("Min length: " + MIN_LENGTH);
+        if (!containsDigit(password))
+            result.addError("Digit is required");
+        if (!containsUpperCase(password))
+            result.addError("Upper case is required");
+        if (!containsLowerCase(password))
+            result.addError("Lower case is required");
+        if (!containsSpecialChar(password, allowed))
+            result.addError("Need a special character from: " + allowed);
+        if (isCommonPassword(password))
+            result.addError("The password is too common");
+
+        return result;
+    }
+
+    public static boolean isValid(String password, String allowed) {
+        return validate(password, allowed).isValid();
+    }
+
     public static boolean isValid(String password) {
-        if (!hasMinLength(password, MIN_LENGTH)) return false;
-        if (!containsDigit(password)) return false;
-        if (!containsUpperCase(password)) return false;
-        if (!containsLowerCase(password)) return false;
-        if (isCommonPassword(password)) return false;
-        return true;
+        return isValid(password, ALLOWED_SPECIALS);
     }
 }
