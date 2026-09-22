@@ -3,8 +3,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class PasswordValidatorTest {
 
@@ -217,7 +216,22 @@ class PasswordValidatorTest {
         assertFalse(PasswordValidator.containsSpecialChar(null, null));
     }
 
-    @Test
-    void isValid() {
+    // isValid()
+    @ParameterizedTest
+    @CsvSource({
+            "Abcdef1g, true",
+            "MyPassword123, true",
+            "Secure9Password, true",
+            "' Abcdef1g ', true",
+            "Abc1def, false",
+            "Abcdefgh, false",
+            "abcdefg1, false",
+            "ABCDEFG1, false",
+            "Passwort1, false",
+            "12345678, false",
+            "Aa345678, false"
+    })
+    void isValid_ShouldReturnexpectedResult(String password, boolean expected) {
+        assertEquals(expected, PasswordValidator.isValid(password));
     }
 }
