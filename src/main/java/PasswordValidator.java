@@ -1,4 +1,19 @@
+import java.util.Locale;
+import java.util.Set;
+
 public class PasswordValidator {
+
+    private static final Set<String> COMMON_PASSWORDS = Set.of(
+            "password",
+            "passwort",
+            "passwort1",
+            "password1",
+            "12345678",
+            "aa345678",
+            "admin123",
+            "11111111",
+            "qwerty123"
+    );
 
     public static boolean hasMinLength(String password, int min) {
         return password != null
@@ -46,8 +61,9 @@ public class PasswordValidator {
     }
 
     public static boolean isCommonPassword(String password) {
-        return false;
-    } // kleine interne Liste
+        if (password == null) return false;
+        return COMMON_PASSWORDS.contains(password.trim().toLowerCase(Locale.ROOT));
+    }
 
     // Bonus:
     public static boolean containsSpecialChar(String password, String allowed) {

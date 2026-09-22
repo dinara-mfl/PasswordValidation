@@ -133,8 +133,39 @@ class PasswordValidatorTest {
         assertFalse(PasswordValidator.containsLowerCase(""));
     }
 
+    // isCommonPassword()
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "password",
+            "PASSWORD",
+            " password ",
+            "Password1",
+            "12345678",
+            "Aa345678"
+    })
+    void isCommonPassword_ShouldReturnTrue_WennPasswordIsCommon(String password) {
+        assertTrue(PasswordValidator.isCommonPassword(password));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "SecurePassword",
+            "fjksoi74hf",
+            "DifferentPassword",
+            "74892657"
+    })
+    void isCommonPassword_ShouldReturnFalse_WennPasswordIsNotCommon(String password) {
+        assertFalse(PasswordValidator.isCommonPassword(password));
+    }
+
     @Test
-    void isCommonPassword() {
+    void isCommonPassword_ShouldReturnFalse_WennPasswordIsNull() {
+        assertFalse(PasswordValidator.isCommonPassword(null));
+    }
+
+    @Test
+    void isCommonPassword_ShouldReturnFalse_WennPasswordIsEmpty() {
+        assertFalse(PasswordValidator.isCommonPassword(""));
     }
 
     @Test
