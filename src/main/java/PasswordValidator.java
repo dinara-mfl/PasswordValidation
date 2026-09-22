@@ -65,8 +65,18 @@ public class PasswordValidator {
         return COMMON_PASSWORDS.contains(password.trim().toLowerCase(Locale.ROOT));
     }
 
-    // Bonus:
     public static boolean containsSpecialChar(String password, String allowed) {
+        if (password == null || allowed == null || allowed.isEmpty()) {
+            return false;
+        }
+
+        char[] characters = password.toCharArray();
+
+        for (char character : characters) {
+            if (allowed.indexOf(character) >= 0) {
+                return true;
+            }
+        }
         return false;
     }
 

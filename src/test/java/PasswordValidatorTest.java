@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -168,8 +169,52 @@ class PasswordValidatorTest {
         assertFalse(PasswordValidator.isCommonPassword(""));
     }
 
+    // containsSpecialChar()
+    @ParameterizedTest
+    @CsvSource({
+            "Password#, !@#$%&",
+            "@Password, !@#$%&",
+            "Pass!.word, !@#$%&.",
+            "*(Password)*, !@#$*()"
+    })
+    void containsSpecialChar_ShouldReturnTrue_WennPasswordHasSpecialChar(String password, String allowed) {
+        assertTrue(PasswordValidator.containsSpecialChar(password, allowed));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "Password, !@#$%&",
+            ".Password, !@#$%&",
+            "Pass??word, !@#$%&",
+            "--Password--, !@#$%&"
+    })
+    void containsSpecialChar_ShouldReturnFalse_WennPasswordHasNoSpecialChar(String password, String allowed) {
+        assertFalse(PasswordValidator.containsSpecialChar(password, allowed));
+    }
+
     @Test
-    void containsSpecialChar() {
+    void containsSpecialChar_ShouldReturnFalse_WennPasswordIsNull() {
+        assertFalse(PasswordValidator.containsSpecialChar(null, "@#$%&"));
+    }
+
+    @Test
+    void containsSpecialChar_ShouldReturnFalse_WennPasswordIsEmpty() {
+        assertFalse(PasswordValidator.containsSpecialChar("", "@#$%&"));
+    }
+
+    @Test
+    void containsSpecialChar_ShouldReturnFalse_WennAllowedCharIsNull() {
+        assertFalse(PasswordValidator.containsSpecialChar("Password!", null));
+    }
+
+    @Test
+    void containsSpecialChar_ShouldReturnFalse_WennAllowedCharIsEmpty() {
+        assertFalse(PasswordValidator.containsSpecialChar("Password!", ""));
+    }
+
+    @Test
+    void containsSpecialChar_ShouldReturnFalse_WennPasswordAndAllowedCharIsNull() {
+        assertFalse(PasswordValidator.containsSpecialChar(null, null));
     }
 
     @Test
