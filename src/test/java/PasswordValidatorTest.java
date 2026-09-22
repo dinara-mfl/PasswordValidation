@@ -71,7 +71,7 @@ class PasswordValidatorTest {
         assertFalse(PasswordValidator.containsDigit(""));
     }
 
-    // containsUpper()
+    // containsUpperCase()
     @ParameterizedTest
     @ValueSource(strings = {
             "Password",
@@ -79,8 +79,8 @@ class PasswordValidatorTest {
             "PASSWORD",
             "passworD"
     })
-    void containsUpper_ShouldReturnTrue_WennPasswordHasUpper(String password) {
-        assertTrue(PasswordValidator.containsUpper(password));
+    void containsUpperCase_ShouldReturnTrue_WennPasswordHasUpper(String password) {
+        assertTrue(PasswordValidator.containsUpperCase(password));
     }
 
     @ParameterizedTest
@@ -88,22 +88,49 @@ class PasswordValidatorTest {
             "password",
             "12345678",
     })
-    void containsUpper_ShouldReturnFalse_WennPasswordHasNoUpper(String password) {
-        assertFalse(PasswordValidator.containsUpper(password));
+    void containsUpperCase_ShouldReturnFalse_WennPasswordHasNoUpper(String password) {
+        assertFalse(PasswordValidator.containsUpperCase(password));
     }
 
     @Test
-    void containsUpper_ShouldReturnFalse_WennPasswordIsNull() {
-        assertFalse(PasswordValidator.containsUpper(null));
+    void containsUpperCase_ShouldReturnFalse_WennPasswordIsNull() {
+        assertFalse(PasswordValidator.containsUpperCase(null));
     }
 
     @Test
-    void containsUpper_ShouldReturnFalse_WennPasswordsIsEmpty() {
-        assertFalse(PasswordValidator.containsUpper(""));
+    void containsUpperCase_ShouldReturnFalse_WennPasswordIsEmpty() {
+        assertFalse(PasswordValidator.containsUpperCase(""));
+    }
+
+    // containsLowerCase()
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "password",
+            "PAsSWoRD",
+            "pASSWORD",
+            "PASSWORd"
+    })
+    void containsLowerCase_ShouldReturnTrue_WennPasswordHasLower(String password) {
+        assertTrue(PasswordValidator.containsLowerCase(password));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "PASSWORD",
+            "12345678",
+    })
+    void containsLowerCase_ShouldReturnFalse_WennPasswordHasNoLower(String password) {
+        assertFalse(PasswordValidator.containsLowerCase(password));
     }
 
     @Test
-    void containsLower() {
+    void containsLowerCase_ShouldReturnFalse_WennPasswordIsNull() {
+        assertFalse(PasswordValidator.containsLowerCase(null));
+    }
+
+    @Test
+    void containsLowerCase_ShouldReturnFalse_WennPasswordIsEmpty() {
+        assertFalse(PasswordValidator.containsLowerCase(""));
     }
 
     @Test

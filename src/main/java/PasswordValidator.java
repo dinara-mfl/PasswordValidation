@@ -19,7 +19,7 @@ public class PasswordValidator {
         return false;
     }
 
-    public static boolean containsUpper(String password) {
+    public static boolean containsUpperCase(String password) {
         if (password == null) return false;
 
         char[] characters = password.toCharArray();
@@ -32,7 +32,16 @@ public class PasswordValidator {
         return false;
     }
 
-    public static boolean containsLower(String password) {
+    public static boolean containsLowerCase(String password) {
+        if (password == null) return false;
+
+        char[] characters = password.toCharArray();
+
+        for(char character: characters){
+            if (Character.isLowerCase(character)) {
+                return true;
+            }
+        }
         return false;
     }
 
